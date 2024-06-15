@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <title>MyShop</title>
     <link rel="stylesheet" type="text/css" href="\css\style.css">
+    <!--
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    -->
 </head>
 <body>
-    <header th:replace="fragments/header :: ShopHeader"></header>
+<img src="https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-7-full.jpg">
 
-    <div class="main-content">
-        <div class="item" th:each="item : ${items}">
-            <p class="item-name" th:text="${item.name}"></p>
+<header th:replace="fragments/header :: ShopHeader"></header>
 
-            <img th:src="@{${item.imgUrl}}">
-
-            <div>
-                <span>Cena: </span>
-                <span th:text="${item.price}"> </span>
-                <span>zł</span>
-            </div>
-
+<div class="main-content">
+    <div class="item" th:each="item : ${items}">
+        <p class="item-name" th:text="${item.name}"></p>
+        <img th:src="@{${item.imgUrl}}">
+        <div>
+            <span>Cena</span>
+            <span th:text="${item.price}"></span>
+            <span>zł</span>
         </div>
-    
+
+        <a th:href="@{'/add/'+${item.id}}" class="add-btn">Dodaj do koszyka</a>
     </div>
+</div>
 </body>
 </html>

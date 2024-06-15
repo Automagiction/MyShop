@@ -16,9 +16,9 @@
             <p class="item-name" th:text="${item.name}"></p>
             <img th:src="@{${item.imgUrl}}">
             <div>
-                <span>Cena</span>
-                <span th:text="${item.price}"></span>
-                <span>zł</span>
+                <span class="item-price">Cena</span>
+                <span class="item-price" th:text="${item.price}"></span>
+                <span class="item-price">zł</span>
             </div>
 
             <a th:href="@{'/add/'+${item.id}}" class="add-btn">Dodaj do koszyka</a>

@@ -15,16 +15,16 @@
             <table cellspacing="0">
                 <tr>
                     <th style="width: 30px;">No.</th>
-                    <th style="width: 50px;"></th>
+                    <th style="width: 50px;">Img</th>
                     <th>Nazwa</th>
                     <th>Ilość</th>
                     <th>Suma</th>
-                    <th style="width: 30px;"></th>
+                    <th style="width: 30px;">Usuń</th>
                 </tr>
                 <tr th:each="cartItem : ${@cart.cartItems}">
-                    <td>1</td>
+                    <td class="count"></td>
                     <td>
-                        <img th:src="@{${cartItem.item.imgUrl}}">
+                        <img class="table-img" th:src="@{${cartItem.item.imgUrl}}">
                     </td>
                     <td th:text="${cartItem.item.name}"></td>
                     <td style="display: flex; padding-top: 10px">
@@ -40,7 +40,7 @@
             </table>
 
             <div class="summary">
-                <p><span>Do zapłaty</span><span th:text="${@cart.sum}"></span>zł</p>
+                <p class="summary-price"><span>Do zapłaty: </span><span th:text="${@cart.sum}"></span> zł</p>
             </div>
             <a th:href="@{/order/summary}" class="add-btn">Kupuję i płacę</a>
         </div>
