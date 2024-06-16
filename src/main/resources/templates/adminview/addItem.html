@@ -14,19 +14,22 @@
 <a th:href="@{'/'}" class="return-btn">Powrót do strony głównej</a>
 </div>
 
-<div class="main-content">
+<div class="column-content">
 
     <div class="summary">
         <h1>Dodaj </h1>
 
         <form th:action="@{/admin/add}" method="post">
-            <label>Nazwa</label>
-            <input type="text" name="name" required>
-            <label >Cena</label>
-            <input type="number" min="0.01" step="0.01" name="price" required>
-            <label>urlImg</label>
-            <input type="text" name="imgUrl">
-            <button type="submit">Dodaj</button>
+            <label>Nazwa:
+                <input class="add-input" type="text" name="name" required>
+            </label>
+            <label>Cena:
+                <input class="add-input" type="number" min="0.01" step="0.01" name="price" required>
+            </label>
+            <label>urlImg:
+                <input class="add-input" type="text" name="imgUrl">
+            </label>
+            <button class="add-btn" type="submit">Dodaj</button>
         </form>
 
     </div>
