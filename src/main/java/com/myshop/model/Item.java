@@ -1,8 +1,6 @@
 package com.myshop.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +13,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
+@Table(name = "item")
 public class Item {
     public Item(String name, BigDecimal price, String imgUrl) {
         this.name = name;
@@ -23,9 +22,12 @@ public class Item {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column
     private String name;
+    @Column
     private BigDecimal price;
+    @Column
     private String imgUrl;
 }

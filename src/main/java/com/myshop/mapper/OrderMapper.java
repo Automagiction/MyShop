@@ -26,7 +26,7 @@ public class OrderMapper {
     public static List<OrderItem> mapToOrderItemList(Cart cart, Order order) {
         List<OrderItem> orderItems = new ArrayList<>();
         for(CartItem cartItem: cart.getCartItems()) {
-            orderItems.add(new OrderItem(order.getOrderId(), cartItem.getItem().getId(), cartItem.getCounter()));
+            orderItems.add(new OrderItem(order.getOrderId(), cartItem.getItem().getId(), cartItem.getCounter(), cartItem.getPrice()));
         }
         return orderItems;
     }

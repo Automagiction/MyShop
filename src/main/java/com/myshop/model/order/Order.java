@@ -15,13 +15,19 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long orderId;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
+    @Column
     private String address;
+    @Column
     private String postCode;
+    @Column
     private String city;
+    @Column
     private LocalDateTime created;
 
     @OneToMany
