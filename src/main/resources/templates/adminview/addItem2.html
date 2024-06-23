@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MyShop</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="\css\style.css">
 </head>
 <body>
 <header>
@@ -11,12 +11,14 @@
 </header>
 
 <div class="main-content">
-    <a th:href="@{'/'}" class="return-btn">Powrót do strony głównej</a>
+<a th:href="@{'/'}" class="return-btn">Powrót do strony głównej</a>
 </div>
 
 <div class="column-content">
+
     <div class="summary">
-        <h1>Dodaj</h1>
+        <h1>Dodaj </h1>
+
         <form th:action="@{/admin/add}" method="post">
             <label>Nazwa:
                 <input class="add-input" type="text" name="name" required>
@@ -29,12 +31,15 @@
             </label>
             <button class="add-btn" type="submit">Dodaj</button>
         </form>
+
     </div>
 </div>
 
 <div class="column-content">
-    <h1>Usuń</h1>
+    <h1>Usuń </h1>
+
     <div class="main-content">
+
         <div class="item" th:each="item : ${items}">
             <p class="item-name" th:text="${item.name}"></p>
             <img th:src="@{${item.imgUrl}}">
@@ -44,40 +49,38 @@
                 <span>zł</span>
             </div>
 
-            <a th:href="@{'/admin/remove/' + ${item.id}}" class="add-btn">Usuń przedmiot</a>
-            <a href="#" class="add-btn" onclick="openPopup([[${item.id}]])">Edytuj przedmiot</a>
+            <a th:href="@{'admin/remove/'+${item.id}}" class="add-btn">Usuń przedmiot</a>
+            <a class="add-btn" onclick="openPopup(${item.id})">Edytuj przedmiot</a>
+            <div class="popup" id="popup">
+                <h1>Edytuj przedmiot: <span th:value="${item.name}"></span> </h1>
+                <form th:action="@{'/admin/edit/'+${item.id}}" th:object="${item}" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <div>
+                        <label class="edit-label">Nazwa:
+                            <input class="edit-input" type="text" name="name" th:field="*{name}" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>Cena:
+                            <input class="edit-input" type="number" min="0.01" step="0.01" name="price" th:field="*{price}" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>urlImg:
+                            <input class="edit-input" type="text" name="imgUrl" th:field="*{imgUrl}">
+                        </label>
+                    </div>
+                    <button class="add-btn" type="submit" onclick="closePopup()">Zmień</button>
+                    <button class="add-btn" type="button" onclick="closePopup()">Powrót</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="popup" id="popup">
-    <h1>Edytuj przedmiot: <span id="popup-item-name"></span></h1>
-    <form id="editForm" method="post">
-        <input type="hidden" name="_method" value="put">
-        <div>
-            <label class="edit-label">Nazwa:
-                <input class="edit-input" type="text" name="name" id="edit-name" required>
-            </label>
-        </div>
-        <div>
-            <label>Cena:
-                <input class="edit-input" type="number" min="0.01" step="0.01" name="price" id="edit-price" required>
-            </label>
-        </div>
-        <div>
-            <label>urlImg:
-                <input class="edit-input" type="text" name="imgUrl" id="edit-imgUrl">
-            </label>
-        </div>
-        <button class="add-btn" type="submit">Zmień</button>
-        <button class="add-btn" type="button" onclick="closePopup()">Powrót</button>
-    </form>
-</div>
-
 <script>
     let popup = document.getElementById("popup");
-
-    function openPopup(itemId) {
+    function openPopup(itemId){
         fetch('/admin/edit/' + itemId)
             .then(response => response.json())
             .then(data => {
@@ -85,12 +88,11 @@
                 document.getElementById("edit-name").value = data.name;
                 document.getElementById("edit-price").value = data.price;
                 document.getElementById("edit-imgUrl").value = data.imgUrl;
-                document.getElementById("editForm").setAttribute("action", "/admin/edit/" + itemId);
+                document.getElementById("editForm").setAttribute("th:action", "/admin/edit/" + itemId);
                 popup.classList.add("open-popup");
             });
     }
-
-    function closePopup() {
+    function closePopup(){
         popup.classList.remove("open-popup");
     }
 </script>

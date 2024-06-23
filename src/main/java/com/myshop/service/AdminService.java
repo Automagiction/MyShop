@@ -20,4 +20,20 @@ public class AdminService {
 
         return itemRepository.findAll();
     }
+
+    public Item getItemById(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Item not found"));
+    }
+
+
+    public Item updateItem(Long itemId, Item item) {
+        Item itemById = itemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Item not found"));
+        itemById.setName(item.getName());
+        itemById.setPrice(item.getPrice());
+        itemById.setImgUrl(item.getImgUrl());
+        return itemRepository.save(itemById);
+    }
+//    public Item editItem(Item item) {
+//        return itemRepository.save(item);
+//    }
 }

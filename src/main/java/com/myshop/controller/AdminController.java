@@ -43,6 +43,34 @@ public class AdminController {
         itemRepository.save(item);
         return "redirect:/admin";
     }
+//    @PostMapping("/add")                                      OPCJA NR2!
+//    public String addItem(@ModelAttribute Item item) {
+//        adminService.addItem(item);
+//        return "redirect:/admin";
+//    }
+
+//    @PatchMapping("/edit/{itemId}")
+//    private String editItem(@PathVariable("itemId") @RequestBody Item item) {
+//        //HomeController.items.add(item);
+//        if (item.getImgUrl().isEmpty()){
+//            item.setImgUrl(DEFAULT_IMG_URL);
+//        }
+//            adminService.editItem(item);
+//        return "redirect:/admin";
+//    }
+
+    @GetMapping("/edit/{itemId}")
+    @ResponseBody
+    public Item getItemToEdit(@PathVariable Long itemId) {
+         return adminService.getItemById(itemId);
+    }
+
+    @PutMapping("/edit/{itemId}")
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute Item itemDetails) {
+        adminService.updateItem(itemId, itemDetails);
+        return "redirect:/admin";
+    }
+
 
     @GetMapping("/remove/{itemId}")
     private String removeItem(@PathVariable("itemId") Long itemId) {
@@ -50,9 +78,17 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+//    @GetMapping("/edit/{itemId}")
+//    private String ItemToEdit(@PathVariable("itemId") Long itemId) {
+//        itemRepository.deleteById(itemId);
+//        return "redirect:/admin";
+//    }
+
     @GetMapping("/showorders")
     @ResponseBody
     public List<Order> showOrders() {
         return orderRepository.findAll();
     }
+
 }
+
